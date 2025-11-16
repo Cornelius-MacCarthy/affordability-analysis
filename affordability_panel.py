@@ -3,12 +3,6 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.offline as pyo
-# FILE PATHS
-DL = r"C:\Users\conor\Documents\Affordability Analysis"
-F_INCOME_1 = os.path.join(DL, "Median_income_2004-2019.csv")
-F_INCOME_2 = os.path.join(DL, "Median_income_2020-2024.csv")
-F_RENT     = os.path.join(DL, "Rents_per_month_by_location.csv")
-F_PPI      = os.path.join(DL, "Property_Price_Index.csv")
 # Setting file paths
 DL = r"C:\Users\conor\Documents\Affordability Analysis"
 F_INCOME_1 = os.path.join(DL, "Median_income_2004-2019.csv")
