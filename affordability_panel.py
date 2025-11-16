@@ -14,3 +14,6 @@ income1 = pd.read_csv(F_INCOME_1)
 income2 = pd.read_csv(F_INCOME_2)
 rents   = pd.read_csv(F_RENT)
 ppi     = pd.read_csv(F_PPI)
+# edit column names
+for df in (income1, income2, rents, ppi):
+    df.columns = df.columns.str.strip().str.replace(" ", "_")
