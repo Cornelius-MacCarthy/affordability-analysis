@@ -30,3 +30,17 @@ income_all = income_all.sort_values("Year")
 # Convert to monthly income and give each year a date (middle of year)
 income_all["Monthly_Income"] = income_all["Annual_Income"] / 12
 income_all["Date"] = pd.to_datetime(income_all["Year"].astype(str) + "-07-01")
+# Create a full monthly date range and interpolate income
+date_monthly = pd.date_range("2004-01-01", "2025-12-01", freq="MS")
+income_monthly = (income_all.set_index("Date")[["Monthly_Income"]].reindex(date_monthly).interpolate(method="time").rename_axis("Date").reset_index())
+
+# Create income index (2008-01-01 = 100) for buyers overlay
+base_income_2008 = income_monthly.loc[income_monthly["Date"] == pd.Timestamp("2008-01-01"),"Monthly_Income"].iloc[0]
+income_monthly["Income_Index_2008"] = (income_monthly["Monthly_Income"] / base_income_2008 * 100)
+
+# Yearly income (for renters chart)
+income_year = income_all[["Year", "Monthly_Income"]]
+
+# Monthly income index from 2008 onwards (for buyers chart)
+income_m_idx = income_monthly.loc[income_monthly["Date"] >= "2008-01-01",["Date", "Income_Index_2008"]]
+
