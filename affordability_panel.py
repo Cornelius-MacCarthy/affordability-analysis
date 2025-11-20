@@ -44,3 +44,16 @@ income_year = income_all[["Year", "Monthly_Income"]]
 # Monthly income index from 2008 onwards (for buyers chart)
 income_m_idx = income_monthly.loc[income_monthly["Date"] >= "2008-01-01",["Date", "Income_Index_2008"]]
 
+# Keep only year + value from both income files
+income1_small = income1[["Year", "VALUE"]]
+income2_small = income2[["Year", "VALUE"]]
+
+# Combine and average inside each year
+income_all = pd.concat([income1_small, income2_small], ignore_index=True)
+income_all = income_all.groupby("Year", as_index=False)["VALUE"].mean()
+income_all = income_all.rename(columns={"VALUE": "Annual_Income"})
+income_all = income_all.sort_values("Year")
+
+# Convert to monthly income and give each year a date (middle of year)
+income_all["Monthly_Income"] = income_all["Annual_Income"] / 12
+income_all["Date"] = pd.to_datetime(income_all["Year"].astype(str) + "-07-01")
