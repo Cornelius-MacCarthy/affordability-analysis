@@ -70,3 +70,21 @@ income_year = income_all[["Year", "Monthly_Income"]]
 
 # Monthly income index from 2008 onwards (for buyers chart)
 income_m_idx = income_monthly.loc[income_monthly["Date"] >= "2008-01-01",["Date", "Income_Index_2008"]]
+# RENTS: ANNUAL AVERAGE RENTS BY REGION
+
+# Use all bedrooms, all property types
+r = rents[(rents["Number_of_Bedrooms"] == "All bedrooms") &(rents["Property_Type"] == "All property types")].copy()
+r["VALUE"] = pd.to_numeric(r["VALUE"], errors="coerce")
+
+# Label Dublin vs Non-Dublin
+r["Region"] = np.where(r["Location"].str.contains("Dublin", na=False), "Dublin","Non-Dublin")
+
+# Average rent per year and region
+rent_year = (r.groupby(["Year", "Region"])["VALUE"].mean().reset_index().pivot(index="Year", columns="Region", values="VALUE").reset_index())
+
+# Add All-Ireland average (simple mean of Dublin + Non-Dublin)
+rent_year["All-Ireland"] = rent_year[["Dublin", "Non-Dublin"]].mean(axis=1)
+
+# Attach yearly income (for renters view)
+renters = rent_year.merge(income_year, on="Year", how="inner")
+renters = renters[renters["Year"].between(2008, 2024)]
