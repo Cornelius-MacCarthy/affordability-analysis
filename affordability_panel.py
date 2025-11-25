@@ -88,3 +88,36 @@ rent_year["All-Ireland"] = rent_year[["Dublin", "Non-Dublin"]].mean(axis=1)
 # Attach yearly income (for renters view)
 renters = rent_year.merge(income_year, on="Year", how="inner")
 renters = renters[renters["Year"].between(2008, 2024)]
+
+# PROPERTY PRICE INDEX: REBASE TO 2008=100
+
+ppi = ppi.rename(columns={"Type_of_Residential_Property": "Type","VALUE": "Value"})
+ppi["Date"] = pd.to_datetime(ppi["Month"], format="%Y %B", errors="coerce")
+ppi["Year"] = ppi["Date"].dt.year
+ppi["Value"] = pd.to_numeric(ppi["Value"], errors="coerce")
+
+# Keeping just necessary series
+wanted_types = ["Dublin - houses","Dublin - apartments","National - houses","National - apartments"]
+ppi = ppi[ppi["Type"].isin(wanted_types) &ppi["Value"].notna() &ppi["Date"].notna()].copy()
+
+# Region column: Dublin vs All-Ireland
+ppi["Region"] = np.where(ppi["Type"].str.startswith("Dublin -"),"Dublin","All-Ireland")
+
+# Property type: Houses vs Apartments
+ppi["PropertyType"] = np.where(ppi["Type"].str.contains("apartments", case=False),"Apartments","Houses")
+
+# Rebase each (Region, PropertyType) to 2008=100
+rebased_parts = []
+group_cols = ["Region", "PropertyType"]
+
+for (reg, prop), grp in ppi.groupby(group_cols):
+    g = grp.sort_values("Date").copy()
+    # first value in 2008 as base
+    base_row = g.loc[g["Year"] >= 2008].head(1)
+    base_val_ppi = float(base_row["Value"].iloc[0])
+
+    g["PPI_Index_2008"] = g["Value"] / base_val_ppi * 100
+    g = g[g["Date"] >= "2008-01-01"]  # start at 2008 in january 
+    rebased_parts.append(g)
+
+ppi_idx = pd.concat(rebased_parts, ignore_index=True)
