@@ -121,3 +121,11 @@ for (reg, prop), grp in ppi.groupby(group_cols):
     rebased_parts.append(g)
 
 ppi_idx = pd.concat(rebased_parts, ignore_index=True)
+
+FT_COLORS = {"dublin": "#e75446", "non": "#1a3b5d", "all": "#a39e9e", "income": "#000000"}
+
+layout_ft = dict(plot_bgcolor="#FFF1E5", paper_bgcolor="#FFF1E5",font=dict(family="Georgia, 'Times New Roman', serif", size=14, color="#3C3C3C"),hovermode="x unified",
+        xaxis=dict(showgrid=True, gridcolor="#dddddd", zeroline=False),  yaxis=dict(showgrid=True, gridcolor="#dddddd", zeroline=False),
+        legend=dict(orientation="h", y=-0.25, x=0.5, xanchor="center", bgcolor="rgba(255,255,255,0.85)"),margin=dict(l=60, r=50, t=80, b=70),)
+
+fig = go.Figure()
