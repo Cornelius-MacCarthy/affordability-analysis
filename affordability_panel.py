@@ -163,4 +163,8 @@ buttons = [dict(label="Renters • Dublin",method="update",args=[{"visible": vis
     dict(label="Buyers • Dublin Apartments",method="update",args=[{"visible": vis(BUY_DUB_A, BUY_INC)},{"yaxis": {"title": "Index (2008=100)"},"xaxis": {"title": "Month", "type": "date"},"title": "Affordability — Buyers • Dublin • Apartments",},],),
     dict(label="Buyers • All-Ireland Houses",method="update",args=[{"visible": vis(BUY_ALL_H, BUY_INC)},{"yaxis": {"title": "Index (2008=100)"},"xaxis": {"title": "Month", "type": "date"},"title": "Affordability — Buyers • All-Ireland • Houses",},],),
     dict(label="Buyers • All-Ireland Apartments",method="update",args=[{"visible": vis(BUY_ALL_A, BUY_INC)},{"yaxis": {"title": "Index (2008=100)"},"xaxis": {"title": "Month", "type": "date"},"title": "Affordability — Buyers • All-Ireland • Apartments",},],),]
+
+
+fig.update_layout(layout_ft,title="Affordability — Renters • Dublin",updatemenus=[dict(type="dropdown",direction="down",x=1.04,y=1.0,xanchor="left",yanchor="top",bgcolor="rgba(255,255,255,0.9)",bordercolor="#ddd",buttons=buttons,) ],)
+fig.add_annotation(text=("Source: CSO & RTB — Median Income (annual to monthly interpolation), ""RTB Average Rents (All bedrooms, All property types), ""and CSO Residential PPI (rebased to 2008=100)."),showarrow=False,xref="paper",yref="paper",x=0,y=-0.22,font=dict(size=12, color="grey"),)
     
