@@ -137,6 +137,12 @@ for region, color in zip(["Dublin", "Non-Dublin", "All-Ireland"],[FT_COLORS["dub
 # Median monthly income (renters view)
 fig.add_trace(go.Scatter(x=renters["Year"],y=renters["Monthly_Income"],name="Median Monthly Income (€)",mode="lines+markers",line=dict(color=FT_COLORS["income"], width=3),visible=True))
 
+# Buyers traces  
+buyers_series = [("Dublin","Houses",FT_COLORS["dublin"]),("Dublin","Apartments",FT_COLORS["all"]),("All-Ireland","Houses",FT_COLORS["dublin"]),("All-Ireland","Apartments",FT_COLORS["all"]),]
+
+for reg, prop, col in buyers_series:
+    d = ppi_idx[(ppi_idx["Region"] == reg) &(ppi_idx["PropertyType"] == prop)]
+    fig.add_trace(go.Scatter(x=d["Date"],y=d["PPI_Index_2008"],name=f"{reg} {prop} Index (2008=100)",mode="lines+markers",line=dict(color=col, width=3),visible=False))
 
    
 
