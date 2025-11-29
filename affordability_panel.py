@@ -168,3 +168,6 @@ buttons = [dict(label="Renters • Dublin",method="update",args=[{"visible": vis
 fig.update_layout(layout_ft,title="Affordability — Renters • Dublin",updatemenus=[dict(type="dropdown",direction="down",x=1.04,y=1.0,xanchor="left",yanchor="top",bgcolor="rgba(255,255,255,0.9)",bordercolor="#ddd",buttons=buttons,) ],)
 fig.add_annotation(text=("Source: CSO & RTB — Median Income (annual to monthly interpolation), ""RTB Average Rents (All bedrooms, All property types), ""and CSO Residential PPI (rebased to 2008=100)."),showarrow=False,xref="paper",yref="paper",x=0,y=-0.22,font=dict(size=12, color="grey"),)
     
+OUT = os.path.join(DL, "Affordability_Analysis.html")
+pyo.plot(fig, filename=OUT, auto_open=True)
+print(f"[SUCCESS] Saved interactive chart to {OUT}")
