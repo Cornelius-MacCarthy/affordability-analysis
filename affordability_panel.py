@@ -129,3 +129,7 @@ layout_ft = dict(plot_bgcolor="#FFF1E5", paper_bgcolor="#FFF1E5",font=dict(famil
         legend=dict(orientation="h", y=-0.25, x=0.5, xanchor="center", bgcolor="rgba(255,255,255,0.85)"),margin=dict(l=60, r=50, t=80, b=70),)
 
 fig = go.Figure()
+for region, color in zip(["Dublin", "Non-Dublin", "All-Ireland"],[FT_COLORS["dublin"], FT_COLORS["non"], FT_COLORS["all"]]):
+        fig.add_trace(go.Scatter(x=renters["Year"], y=renters[region],name=f"{region} Rent (€)", mode="lines+markers",line=dict(color=color, width=3),visible=(region == "Dublin")))
+
+fig.add_trace(go.Scatter(x=renters["Year"], y=renters["Monthly_Income"],name="Median Monthly Income (€)",mode="lines+markers",line=dict(color=FT_COLORS["income"], width=3),visible=True))
