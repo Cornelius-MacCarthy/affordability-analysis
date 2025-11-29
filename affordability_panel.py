@@ -147,5 +147,13 @@ for reg, prop, col in buyers_series:
 # Income index for buyers (2008=100)
 fig.add_trace(go.Scatter(x=income_m_idx["Date"],y=income_m_idx["Income_Index_2008"],name="Median Monthly Income (2008=100)",mode="lines",line=dict(color=FT_COLORS["income"], width=3),visible=False))
    
+def vis(*indices_on):
+    visible_list = [False] * len(fig.data)
+    for idx in indices_on:
+        visible_list[idx] = True
+    return visible_list
+
+RENT_DUB, RENT_NON, RENT_ALL, RENT_INC = 0, 1, 2, 3
+BUY_DUB_H, BUY_DUB_A, BUY_ALL_H, BUY_ALL_A, BUY_INC = 4, 5, 6, 7, 8
 
     
