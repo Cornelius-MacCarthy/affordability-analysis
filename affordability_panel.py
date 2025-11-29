@@ -156,4 +156,11 @@ def vis(*indices_on):
 RENT_DUB, RENT_NON, RENT_ALL, RENT_INC = 0, 1, 2, 3
 BUY_DUB_H, BUY_DUB_A, BUY_ALL_H, BUY_ALL_A, BUY_INC = 4, 5, 6, 7, 8
 
+buttons = [dict(label="Renters • Dublin",method="update",args=[{"visible": vis(RENT_DUB, RENT_INC)},{"yaxis": {"title": "Euro (€)"},"xaxis": {"title": "Year", "type": "-"},"title": "Affordability — Renters • Dublin",},],),
+    dict(label="Renters • Non-Dublin",method="update",args=[{"visible": vis(RENT_NON, RENT_INC)},{"yaxis": {"title": "Euro (€)"},"xaxis": {"title": "Year", "type": "-"},"title": "Affordability — Renters • Non-Dublin",},],),
+    dict(label="Renters • All-Ireland",method="update",args=[{"visible": vis(RENT_ALL, RENT_INC)},{"yaxis": {"title": "Euro (€)"},"xaxis": {"title": "Year", "type": "-"},"title": "Affordability — Renters • All-Ireland",},],),
+    dict(label="Buyers • Dublin Houses",method="update",args=[{"visible": vis(BUY_DUB_H, BUY_INC)},{"yaxis": {"title": "Index (2008=100)"},"xaxis": {"title": "Month", "type": "date"},"title": "Affordability — Buyers • Dublin • Houses",},],),
+    dict(label="Buyers • Dublin Apartments",method="update",args=[{"visible": vis(BUY_DUB_A, BUY_INC)},{"yaxis": {"title": "Index (2008=100)"},"xaxis": {"title": "Month", "type": "date"},"title": "Affordability — Buyers • Dublin • Apartments",},],),
+    dict(label="Buyers • All-Ireland Houses",method="update",args=[{"visible": vis(BUY_ALL_H, BUY_INC)},{"yaxis": {"title": "Index (2008=100)"},"xaxis": {"title": "Month", "type": "date"},"title": "Affordability — Buyers • All-Ireland • Houses",},],),
+    dict(label="Buyers • All-Ireland Apartments",method="update",args=[{"visible": vis(BUY_ALL_A, BUY_INC)},{"yaxis": {"title": "Index (2008=100)"},"xaxis": {"title": "Month", "type": "date"},"title": "Affordability — Buyers • All-Ireland • Apartments",},],),]
     
